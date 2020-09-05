@@ -1,7 +1,8 @@
 import csv
-#import heapsort as hp
+import heapsort
 import quicksort
 import radixsort
+import os
 
 # This Method Parses the CSV file and stores it in a dictionary for easy access
 def getDB():
@@ -26,19 +27,30 @@ def getDB():
 
     return ITEM_DATABASE, upc14_collection
 
+def sort(method):
+    
+    ITEM_DATABASE, upc14_collection = getDB()
+    
+    if method == 'QUICKSORT':
+        quicksort.sort(upc14_collection) 
+    elif method == 'RADIXSORT':
+        return
+    elif method == 'HEAPSORT':
+        return
+    
+    with open('Sorted Database.txt', 'w') as file:
+        for i in range(0, len(upc14_collection)):
+            file.write('{}, {}, {} \n'.format(
+                ITEM_DATABASE.get(upc14_collection[i])[0], 
+                ITEM_DATABASE.get(upc14_collection[i])[1], 
+                ITEM_DATABASE.get(upc14_collection[i])[2])
+                    )
+            
+        file.close()
+        os.system('open Sorted\ Database.txt')  
 
-
-ITEM_DATABASE, upc14_collection = getDB() 
-print(ITEM_DATABASE[0])
-quicksort.sort(upc14_collection, 0, len(upc14_collection) - 1)
+#ITEM_DATABASE, upc14_collection = getDB() 
+#uicksort.sort(upc14_collection, 0, len(upc14_collection) - 1)
 #upc14_collection = radixsort.sort(upc14_collection)
-with open('Sorted Database.txt', 'w') as file:
-    for i in range(0, len(upc14_collection)):
-        file.write('{}, {}, {} \n'.format(
-            ITEM_DATABASE.get(upc14_collection[i])[0], 
-            ITEM_DATABASE.get(upc14_collection[i])[1], 
-            ITEM_DATABASE.get(upc14_collection[i])[2])
-                   )
-        
-    file.close()        
+      
     

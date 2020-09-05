@@ -33,8 +33,11 @@ def partition(array, first, last):
     #Returns the index of the pivot
     return (i + 1)
 
+def sort(array):
+    __sort(array, 0, len(array) - 1)
+
 # Recursive Function
-def sort(array, first, last):
+def __sort(array, first, last):
     # End case: if the length of the partitioned array is equal to 1
     if len(array) == 1:
         return array
@@ -43,5 +46,5 @@ def sort(array, first, last):
         # Finds the index of the pivot in the correct spot
         pivot = partition(array, first, last)
         # Recursively calls to partition the array before and after the array
-        sort(array, first, pivot - 1)
-        sort(array, pivot + 1, last) 
+        __sort(array, first, pivot - 1)
+        __sort(array, pivot + 1, last) 
