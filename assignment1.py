@@ -27,8 +27,31 @@ def getDB():
 
     return ITEM_DATABASE, upc14_collection
 
+# Functionality
+    
+    # Dictionary (ITEM_DATABASE) that has the keys as the UPC14 codes that are stored as integers 
+    # The values for the dictionary are arrays that contains the product information
+    
+     # index = 0 : String form of the UPC14 code (contains leading zeros)
+    # index = 1 : Brand of the product
+    # index = 2: Name of the product
+    
+    # Array (UPC14_COLLECTION) that just stores the UPC14 codes in the primative type int
+    # The elements are stored as ints for sorting purposes
+    
+    # After the array is sorted (lowest -> greatest), the dictionary ITEM_DATABASE
+    # has a .get(key) method that returns the value for that key. The keys in the 
+    # dictionary are also stored as integers so the array can match up with the dictionary
+    
+    # To get an file output of all of the sorted items, a for loop go through all the
+    # sorted elements in the array and matches the index of the upc code to the dictionary
+    
+# Method that is called to start the sorting of the data set
 def sort(method):
     
+    # Tuple that is returned from the getDB() method
+    # ITEM_DATABASE is a dictionary where the keys are integers and the values are an array
+    # upc14_collection is an array of integers
     ITEM_DATABASE, upc14_collection = getDB()
     
     if method == 'QUICKSORT':
@@ -38,8 +61,12 @@ def sort(method):
     elif method == 'HEAPSORT':
         return
     
+    #Opens the output sorted file and writes to the file to enter the newly sorted data
     with open('Sorted Database.txt', 'w') as file:
+        
+        #For each upc code, a new line in the file will be written
         for i in range(0, len(upc14_collection)):
+            #Written in the format: UPC14 CODE, BRAND, PRODUCT NAME
             file.write('{}, {}, {} \n'.format(
                 ITEM_DATABASE.get(upc14_collection[i])[0], 
                 ITEM_DATABASE.get(upc14_collection[i])[1], 
@@ -47,10 +74,8 @@ def sort(method):
                     )
             
         file.close()
+        # OS opens the sorted text file
         os.system('open Sorted\ Database.txt')  
 
-#ITEM_DATABASE, upc14_collection = getDB() 
-#uicksort.sort(upc14_collection, 0, len(upc14_collection) - 1)
-#upc14_collection = radixsort.sort(upc14_collection)
       
     
