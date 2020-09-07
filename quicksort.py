@@ -3,20 +3,22 @@
 # WORST CASE RUN TIME - N^2
 # AVERAGE CASE RUN TIME - (expected) n LOG n
 
-# The pivot point is set to the last index in the array
-# The right pointer is compared to the pivot and if the right pointer
-# is less than the pivot then the left pointer index increases
-# and then index at i and j are swapped
-# At the end of the for loop, the index one higher than i and j are swapped
-# and i + 1 is returned as the pivot
+# Overview:
+    # The pivot point is set to the last index in the array
+    # The right pointer is compared to the pivot and if the right pointer
+    # is less than the pivot then the left pointer index increases
+    # and then index at i and j are swapped
+    # At the end of the for loop, the index one higher than i and j are swapped
+    # and i + 1 is returned as the pivot
 
-# This method of sorting relies on recursion where the end case is if the right
-# pointer index is greater than the left pointer index
+# Important Notes:
+    # This method of sorting relies on recursion where the end case is if the right
+    # pointer index is greater than the left pointer index
 
 # Moves the pivot to the correct spot in the array
 def partition(array, first, last):
     
-    i = (first - 1)
+    i = first - 1
     # Sets the pivot to the last element in the array or partitioned array
     pivot = array[last]
     
@@ -31,7 +33,7 @@ def partition(array, first, last):
     #Swaps the left pointer index + 1 and the last index (pivot)
     array[i + 1], array[last] = array[last], array[i + 1]
     #Returns the index of the pivot
-    return (i + 1)
+    return i + 1
 
 def sort(array):
     __sort(array, 0, len(array) - 1)

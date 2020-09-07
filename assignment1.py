@@ -1,5 +1,6 @@
+import time
 import csv
-import heapsort
+#import heapsort
 import quicksort
 import radixsort
 import os
@@ -32,7 +33,7 @@ def getDB():
     # Dictionary (ITEM_DATABASE) that has the keys as the UPC14 codes that are stored as integers 
     # The values for the dictionary are arrays that contains the product information
     
-     # index = 0 : String form of the UPC14 code (contains leading zeros)
+    # index = 0 : String form of the UPC14 code (contains leading zeros)
     # index = 1 : Brand of the product
     # index = 2: Name of the product
     
@@ -53,14 +54,20 @@ def sort(method):
     # ITEM_DATABASE is a dictionary where the keys are integers and the values are an array
     # upc14_collection is an array of integers
     ITEM_DATABASE, upc14_collection = getDB()
+    # Tracks the amount of time it takes for the algorithm to run
+    start_time = time.clock()
     
     if method == 'QUICKSORT':
         quicksort.sort(upc14_collection) 
     elif method == 'RADIXSORT':
-        return
+        radixsort.sort(upc14_collection)
     elif method == 'HEAPSORT':
         return
     
+    # Ends the time when the algorithm is finished
+    end_time = time.clock()
+    clock = end_time - start_time
+    print('{} DONE: {} seconds'.format(method, clock))
     #Opens the output sorted file and writes to the file to enter the newly sorted data
     with open('Sorted Database.txt', 'w') as file:
         
