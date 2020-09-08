@@ -4,26 +4,38 @@ import csv
 import quicksort
 import radixsort
 import os
+import sys
 
 # This Method Parses the CSV file and stores it in a dictionary for easy access
-def getDB():
+def getDB(isSorted):
     ITEM_DATABASE = {}
     upc14_collection = []
     
-    # {Order Number, UPC14, UPC12, brand, name}
-    with open('Grocery UPC Database.csv', newline='') as csvfile:
-        # Separates Strings on the delimiter ','
-        file = csv.reader(csvfile, delimiter= ',')
-        # For each Row in the CSV file, contains a different item
-        for row in file:
-            # If the type is a string then the for loop will skip over the row
-            if row[1] == 'upc14':
-                continue
-            # key - UPC 14 Code
-            # Value - UPC 14 Code, brand, name
-            else: 
-                ITEM_DATABASE[int(row[1])] = [row[1], row[3], row[4]] 
-                upc14_collection.append(int(row[1]))
+    # If the user wants the file is not be already sorted
+    if isSorted == False:
+        # {Order Number, UPC14, UPC12, brand, name}
+        with open('Grocery UPC Database.csv', newline='') as csvfile:
+            # Separates Strings on the delimiter ','
+            file = csv.reader(csvfile, delimiter= ',')
+            # For each Row in the CSV file, contains a different item
+            for row in file:
+                # If the type is a string then the for loop will skip over the row
+                if row[1] == 'upc14':
+                    continue
+                # key - UPC 14 Code
+                # Value - UPC 14 Code, brand, name
+                else: 
+                    ITEM_DATABASE[int(row[1])] = [row[1], row[3], row[4]] 
+                    upc14_collection.append(int(row[1]))
+    
+    # If the user wants the file is already sorted                
+    else:
+        with open('Sorted Database.csv', newline='') as csvfile:
+            sys.setrecursionlimit(10**(6)) 
+            file = csv.reader(csvfile, delimiter=',')
+            for row in file:
+                ITEM_DATABASE[int(row[0])] = [row[0], row[1], row[2]]
+                upc14_collection.append(int(row[0]))
             
 
     return ITEM_DATABASE, upc14_collection
@@ -48,26 +60,34 @@ def getDB():
     # sorted elements in the array and matches the index of the upc code to the dictionary
     
 # Method that is called to start the sorting of the data set
-def sort(method):
+def sort(method, isSorted, i):
     
     # Tuple that is returned from the getDB() method
     # ITEM_DATABASE is a dictionary where the keys are integers and the values are an array
     # upc14_collection is an array of integers
-    ITEM_DATABASE, upc14_collection = getDB()
+    ITEM_DATABASE, upc14_collection = getDB(isSorted)
+    
+    while i < len(upc14_collection):
+        if i == 0:
+            break
+        else:
+            del upc14_collection[i]
     # Tracks the amount of time it takes for the algorithm to run
     start_time = time.clock()
     
-    if method == 'QUICKSORT':
+    if method.capitalize() == 'QUICKSORT':
         quicksort.sort(upc14_collection) 
-    elif method == 'RADIXSORT':
+    elif method.capitalize() == 'RADIXSORT':
         radixsort.sort(upc14_collection)
-    elif method == 'HEAPSORT':
+    elif method.capitalize() == 'HEAPSORT':
         return
     
     # Ends the time when the algorithm is finished
     end_time = time.clock()
+    # Prints the algorithm used and how long it took to compute
     clock = end_time - start_time
     print('{} DONE: {} seconds'.format(method, clock))
+    
     #Opens the output sorted file and writes to the file to enter the newly sorted data
     with open('Sorted Database.txt', 'w') as file:
         
@@ -77,12 +97,14 @@ def sort(method):
             file.write('{}, {}, {} \n'.format(
                 ITEM_DATABASE.get(upc14_collection[i])[0], 
                 ITEM_DATABASE.get(upc14_collection[i])[1], 
-                ITEM_DATABASE.get(upc14_collection[i])[2])
+                ITEM_DATABASE.get(upc14_collection[i])[2]
+                                            )
                     )
             
         file.close()
         # OS opens the sorted text file
-        os.system('open Sorted\ Database.txt')  
+        os.system('open Sorted\ Database.csv')  
 
       
-    
+if __name__ == '__main__':
+    print("---sort( 'The Sorting Method (CAP)', isSorted? (T/F), number of elements to sort(int) )")

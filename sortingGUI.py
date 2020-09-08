@@ -16,7 +16,7 @@ class Method:
 method = Method()
 
 def eventlistener_process():
-    assignment1.sort(method.getCurrent())
+    assignment1.sort(method.getCurrent(), False, 0)
     
 def eventlistener_quicksort(button_quicksort, button_radixsort, button_heapsort):
     tag = 'QUICKSORT'

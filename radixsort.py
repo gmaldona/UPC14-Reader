@@ -5,6 +5,10 @@
     # n : The number of elements in the set
     # k : The number of possible digits when in the counting array
     
+# Overall Space Complexity is O( n + 2^d )
+    # n : The number of elements in the set
+    # d : The number of digits in the largest number in the set
+    
 # Overview:
     # [] When the initial sort method is called, the method finds the
     # max number within the set. The max number is then divided each time by
