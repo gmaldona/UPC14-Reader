@@ -1,6 +1,6 @@
 import time
 import csv
-#import heapsort
+import heapsort
 import quicksort
 import radixsort
 import os
@@ -75,12 +75,13 @@ def sort(method, isSorted, i):
     # Tracks the amount of time it takes for the algorithm to run
     start_time = time.clock()
     
-    if method.capitalize() == 'QUICKSORT':
+    # Checks to see which method the user wants to use
+    if method == 'QUICKSORT':
         quicksort.sort(upc14_collection) 
-    elif method.capitalize() == 'RADIXSORT':
+    elif method == 'RADIXSORT':
         radixsort.sort(upc14_collection)
-    elif method.capitalize() == 'HEAPSORT':
-        return
+    elif method == 'HEAPSORT':
+        heapsort.sort(upc14_collection)
     
     # Ends the time when the algorithm is finished
     end_time = time.clock()
@@ -89,7 +90,7 @@ def sort(method, isSorted, i):
     print('{} DONE: {} seconds'.format(method, clock))
     
     #Opens the output sorted file and writes to the file to enter the newly sorted data
-    with open('Sorted Database.txt', 'w') as file:
+    with open('Sorted Database.csv', 'w') as file:
         
         #For each upc code, a new line in the file will be written
         for i in range(0, len(upc14_collection)):
@@ -105,6 +106,6 @@ def sort(method, isSorted, i):
         # OS opens the sorted text file
         os.system('open Sorted\ Database.csv')  
 
-      
+# If the user runs the program in interactive mode      
 if __name__ == '__main__':
-    print("---sort( 'The Sorting Method (CAP)', isSorted? (T/F), number of elements to sort(int) )")
+    print("---sort( 'The Sorting Method', isSorted? (T/F), number of elements to sort(int) )")
