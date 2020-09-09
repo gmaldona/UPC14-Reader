@@ -1,5 +1,5 @@
 from tkinter import *
-import assignment1
+import sortingAlgorithms
 
 print('***+++ To run assignment without the GUI, enter the interactive python shell +++***')
 print('***+++ python3 -i assignment1.py +++***')
@@ -16,7 +16,7 @@ class Method:
 method = Method()
 
 def eventlistener_process():
-    assignment1.sort(method.getCurrent(), False, 0)
+    sortingAlgorithms.sort(method.getCurrent(), False, 0)
     
 def eventlistener_quicksort(button_quicksort, button_radixsort, button_heapsort):
     tag = 'QUICKSORT'
