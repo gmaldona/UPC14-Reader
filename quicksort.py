@@ -1,4 +1,4 @@
-# Chapter 7 Page 170
+# Chapter 7 Page 170 
 
 # WORST CASE RUN TIME - N^2
 # AVERAGE CASE RUN TIME - (expected) n LOG n
